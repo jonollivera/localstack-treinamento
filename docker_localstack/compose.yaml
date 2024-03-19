@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+      - "4566-4599:4566-4599"
+    environment:
+      - SERVICES=s3
+      - DEBUG=${DEBUG- }
+      - DATA_DIR=${DATA_DIR- }
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${TMPDIR:-/tmp/localstack2}:/tmp/localstack2"
+      - "/var/run/docker.sock:/var/run/docker.sock"
